@@ -42,6 +42,9 @@ function argcheck {
             if ! [[ "$2" =~ ^(fib)$ ]]; then
                 echo "Not a valid course!"
             fi
+            if ! [[ "$4" =~ ^(python)$ ]]; then
+                echo "Not a valid language!"
+            fi
             if [ -z ${3+x} ]; then
                 echo "Need to supply file !"
                 exit 1
@@ -56,7 +59,7 @@ function argcheck {
 case $1 in
 play)
     echo "Playing!"
-    argcheck $1 $2 $3
+    argcheck $1 $2 $3 $4
     ;;
 *)
     echo "What?"
