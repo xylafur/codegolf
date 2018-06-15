@@ -61,6 +61,30 @@ function check_language {
     echo 0
 }
 
+function get_lang {
+    case $(echo $1 | cut -d. -f2) in
+    py)
+        echo "python"
+        ;;
+    *)
+        ;;
+    esac
+}
+
+function get_course {
+    pot=$(echo $1 | cut -d. -f1)
+    for course in courses
+    do
+        if [ "$pot" = "$course" ];
+        then
+            echo $pot
+            return
+        fi
+    done
+    echo "$pot is not a valid course!"
+    exit 1
+}
+
 
 function argcheck {
 
@@ -93,7 +117,10 @@ function argcheck {
 
 case $1 in
 play)
-    argcheck $1 $2 $3 $4
+    lang=$(get_lang $2)
+    course=$(get_course $2)
+    play $course $2 $lang
+    #argcheck $1 $2 $3 $4
     ;;
 *)
     echo "What?"
