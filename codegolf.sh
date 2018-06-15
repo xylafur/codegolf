@@ -4,11 +4,14 @@ courses=("fib")
 languages=("python")
 
 function usage {
-    echo "$0 play <file>"
+    echo "$0 [ play <file> | course [course name] ]"
     echo "Courses:"
     echo "    fib"
+    echo
     echo "languages:"
     echo "    python"
+    echo "    c"
+    echo
     echo "notes:"
     echo "  For compiled languages like c, cpp, rust, java, etc.. just include"
     echo "  the source file, this script will take care of running it."
@@ -41,6 +44,11 @@ function run_file {
     python)
         echo "$(python3 $2)"
         ;;
+    c)
+        gcc $2 12>/dev/null
+        echo "$(./a.out)"
+        rm a.out 12> /dev/null
+        ;;
     *)
         ;;
     esac
@@ -62,6 +70,9 @@ function get_lang {
     case $(echo $1 | cut -d. -f2) in
     py)
         echo "python"
+        ;;
+    c)
+        echo "c"
         ;;
     *)
         ;;
@@ -115,7 +126,6 @@ courses)
     list_courses
     ;;
 *)
-    echo "What?"
     usage
     ;;
 esac
